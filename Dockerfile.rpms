@@ -1,0 +1,11 @@
+# Stage 1: Install Python and capture RPMs
+FROM registry.access.redhat.com/ubi8/ubi:8.10 AS rpm-gatherer
+
+# Install Python 3.12
+RUN dnf install -y python3.12 python3.12-pip python3.12-devel
+
+WORKDIR /rpms
+COPY extract_rpms.sh .
+RUN chmod +x extract_rpms.sh; ./extract_rpms.sh
+
+CMD ["sleep", "infinity"]
